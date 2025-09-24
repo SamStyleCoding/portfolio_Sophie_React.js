@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 
-export default function Login() {
+export default function Login({ handleLogin }) {
 
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -23,9 +23,7 @@ export default function Login() {
 		}, []);
 
 	const handleSubmit = async (e) => {
-
 		e.preventDefault();
-
 		try {
 			const response = await fetch("http://localhost:5678/api/users/login", {
 				method: "POST",
@@ -43,6 +41,7 @@ export default function Login() {
 
 			localStorage.setItem("token", data.token);
 			
+			handleLogin(data.token);
 			navigate("/");
 
 		}
@@ -94,8 +93,8 @@ export default function Login() {
 				>
 					{
 					showPassword ? 
-					<i class="fa-solid fa-lock-open"></i> :
-					<i class="fa-solid fa-lock"></i>
+					<i className="fa-solid fa-lock-open"></i> :
+					<i className="fa-solid fa-lock"></i>
 					}
 				</span>
 			</div>

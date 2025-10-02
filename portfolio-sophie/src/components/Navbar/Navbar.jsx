@@ -5,7 +5,7 @@ import ModeEdition from "../Edition/ModeEdition";
 export default function Navbar({ isLoggedIn, handleLogout }) {
 
   return (
-    <>
+    <div className="navbaar">
       <ModeEdition isLoggedIn={isLoggedIn} />
       <header>
         <NavLink to="/">
@@ -34,6 +34,6 @@ export default function Navbar({ isLoggedIn, handleLogout }) {
           </ul>
         </nav>
       </header>
-    </>
+    </div>
   );
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 
-export default function ButtonsProjet() {
+export default function ButtonsProjet({onCategoryChange}) {
 
 	const [categories, setCategories] = useState([]);
 	const [error, setError] = useState(null);
@@ -10,6 +10,8 @@ export default function ButtonsProjet() {
 		"Appartements": "button-p-app",
 		"Hotels & restaurants": "button-p-hr"
 	};
+
+	const token = localStorage.getItem("token");
 
 	useEffect(() => {
 		fetch("http://localhost:5678/api/categories")
@@ -29,12 +31,23 @@ export default function ButtonsProjet() {
 
   return (
 	<div className="buttons-projet">
-	  <button className="button-p">Tous</button>
-	  {
-	  	categories.map((cat) => (
-			<button key={cat.id} className={categoryClass[cat.name]}>{cat.name}</button>
-		))
-	  }
+		<button 
+		className="button-p"
+		onClick={() => onCategoryChange("Tous")}
+		>
+		Tous
+		</button>
+		{
+			token && categories.map((cat) => (
+				<button 
+				key={cat.id} 
+				className={categoryClass[cat.name]}
+				onClick={() => onCategoryChange(cat.name)}
+				>
+				{cat.name}
+				</button>
+			))
+		}
 	</div>
   )
 }
